@@ -1,0 +1,24 @@
+{% extends "base_generic.html" %}
+
+<!DOCTYPE html>
+<html>
+    <head>
+        <title>{% block title %} {{post.title_tag}} {% endblock %}</title>
+    </head>
+
+    <body>
+        {% block content %}
+            <h1>{{post.title}}</h1>
+            By: {{post.author.first_name}} {{post.author.last_name}} 
+            <small> <a href="{% url 'IdeaHub:update_post' post.pk %}"> (Edit) </a> </small> 
+            <small> <a href="{% url 'IdeaHub:delete_post' post.pk %}"> (Delete) </a> </small>
+            <br/>
+            <hr>
+            <br/>
+            <p>{{post.body}}</p>  
+
+            <br/>
+            <a href="{% url 'IdeaHub:homepage' %}" class="btn btn-primary">Povratak</a>
+        {% endblock %}
+    </body>
+</html>
