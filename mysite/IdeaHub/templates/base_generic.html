@@ -20,9 +20,45 @@
         <div class="collapse navbar-collapse" id="navbarSupportedContent">
           <ul class="navbar-nav mr-auto">
 
-            <li class="nav-item">
-              <a class="nav-link" href="{% url 'IdeaHub:add_post' %}">Add post</a>
-            </li>
+            <!-- Category Menu Code -->
+
+            {% if category_menu %}
+              <li class="nav-item dropdown">
+                <a class="nav-link dropdown-toggle" href="#" role="button" data-toggle="dropdown" aria-expanded="false">
+                  Kategorije
+                </a>
+                <div class="dropdown-menu">
+                  {% for item in category_menu %}
+                  <a class="dropdown-item" href="{% url 'IdeaHub:category' item|slugify %}">{{item}}</a>
+                  {% endfor %}
+                </div>
+              </li>
+            {% endif %}
+            {% if user.is_authenticated %}
+
+              <li class="nav-item">
+                <a class="nav-link" href="{% url 'IdeaHub:add_post' %}">Add post</a>
+              </li>
+
+              <li class="nav-item">
+                <a class="nav-link" href="{% url 'IdeaHub:add_category' %}">Add category</a>
+              </li>
+
+              <li class="nav-item">
+                <a class="nav-link" href="{% url 'logout' %}">Logout</a> <!-- django.contrib.auth.urls sadrži logout -->
+              </li>
+
+            {% else %}
+
+              <li class="nav-item">
+                <a class="nav-link" href="{% url 'LoginApp:register' %}">Register</a>
+              </li>
+
+              <li class="nav-item">
+                <a class="nav-link" href="{% url 'login' %}">Login</a> <!-- django.contrib.auth.urls sadrži login -->
+              </li>
+
+            {% endif %}
 
           </ul>
         </div>

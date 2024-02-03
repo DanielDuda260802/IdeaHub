@@ -2,23 +2,22 @@
 <!DOCTYPE html>
 <html>
     <head>
-        <title>{% block title %} Update post {% endblock %}</title>
+        <title>{% block title %} Create a new post category {% endblock %}</title>
     </head>
 
     <body>
         {% block content %}
             {% if user.is_authenticated %}
-                <h1>Update post...</h1>
+                <h1>Add category...</h1>
                 <br/>
                 <div class="form-group">
                     <form method="POST">
                         {% csrf_token %}
                         {{ form.as_p }}
-                        <button class="btn btn-primary">Update</button>
+                        <button class="btn btn-primary">Add category!</button>
                 </div>
             {% else %}
-                <p>You are not allowed here.</p>
-
+                <p> You are not allowed here.</p>
             {% endif %}
         {% endblock %}
     </body>

@@ -9,13 +9,18 @@
     <body>
         {% block content %}
             <h1>{{post.title}}</h1>
-            By: {{post.author.first_name}} {{post.author.last_name}} 
-            <small> <a href="{% url 'IdeaHub:update_post' post.pk %}"> (Edit) </a> </small> 
-            <small> <a href="{% url 'IdeaHub:delete_post' post.pk %}"> (Delete) </a> </small>
+            {{post.category}}
+            <br/>
+            By: {{post.author.first_name}} {{post.author.last_name}}
+            <small> {{post.post_date}} </small> 
+            {% if user.is_authenticated %}
+                <small> <a href="{% url 'IdeaHub:update_post' post.pk %}"> (Edit) </a> </small> 
+                <small> <a href="{% url 'IdeaHub:delete_post' post.pk %}"> (Delete) </a> </small>
+            {% endif %}
             <br/>
             <hr>
             <br/>
-            <p>{{post.body}}</p>  
+            <p>{{post.body|safe}}</p>  
 
             <br/>
             <a href="{% url 'IdeaHub:homepage' %}" class="btn btn-primary">Povratak</a>

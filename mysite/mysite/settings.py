@@ -37,7 +37,8 @@ INSTALLED_APPS = [
     'django.contrib.sessions',
     'django.contrib.messages',
     'django.contrib.staticfiles',
-    'IdeaHub.apps.IdeahubConfig'
+    'IdeaHub.apps.IdeahubConfig',
+    'LoginApp.apps.LoginappConfig'
 ]
 
 MIDDLEWARE = [
@@ -63,6 +64,7 @@ TEMPLATES = [
                 'django.template.context_processors.request',
                 'django.contrib.auth.context_processors.auth',
                 'django.contrib.messages.context_processors.messages',
+                'IdeaHub.context_processors.category_menu',
             ],
         },
     },
@@ -122,3 +124,6 @@ STATIC_URL = 'static/'
 # https://docs.djangoproject.com/en/4.2/ref/settings/#default-auto-field
 
 DEFAULT_AUTO_FIELD = 'django.db.models.BigAutoField'
+
+LOGIN_REDIRECT_URL = 'IdeaHub:homepage'
+LOGOUT_REDIRECT_URL = 'IdeaHub:homepage'
