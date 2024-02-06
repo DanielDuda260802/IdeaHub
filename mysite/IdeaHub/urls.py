@@ -1,6 +1,6 @@
 from django.urls import path
 from . import views
-from .views import HomeView, IdeaDetailView, AddPostView, UpdatePostView, DeletePostView, AddCategoryView, CategoryView
+from .views import HomeView, IdeaDetailView, AddPostView, UpdatePostView, DeletePostView, AddCategoryView, CategoryView, LikeView
 
 app_name = 'IdeaHub'  # here for namespacing of urls.
 
@@ -11,5 +11,6 @@ urlpatterns = [
     path('updatePost/<int:pk>', UpdatePostView.as_view(), name='update_post'),
     path('deletePost/<int:pk>', DeletePostView.as_view(), name='delete_post'),
     path('addCategory/', AddCategoryView.as_view(), name='add_category'),
-    path('kategorija/<str:categories>/', CategoryView, name='category')
+    path('kategorija/<str:categories>/', CategoryView, name='category'),
+    path('like/<int:pk>', LikeView, name="like_post"),
 ]

@@ -26,6 +26,25 @@
 
             <br/>
             <a href="{% url 'IdeaHub:homepage' %}" class="btn btn-primary">Povratak</a>
+
+            <br/><br/>
+            <hr>
+            <br/>
+            
+            <form action="{% url 'IdeaHub:like_post' post.pk %}" method="POST">
+                {% csrf_token %}
+                
+                {% if user.is_authenticated %}
+                    {% if liked %}
+                        <button type="submit", name="post_id", value="{{post.id}}", class="btn btn-danger">Ne sviđa mi se</button> 
+                    {% else %}
+                        <button type="submit", name="post_id", value="{{post.id}}", class="btn btn-primary">Sviđa mi se</button> 
+                    {% endif %}
+                {% else %}
+                    <small><a href="{% url 'login' %}"> Login</a> to like.</small>
+                {% endif %}
+                - {{ total_likes }} Likes
+            </form>
         {% endblock %}
     </body>
 </html>
