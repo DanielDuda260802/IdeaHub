@@ -8,14 +8,18 @@
     <body>
         {% block content %}
             {% if user.is_authenticated %}
-                <h1>Update post...</h1>
-                <br/>
-                <div class="form-group">
-                    <form method="POST">
-                        {% csrf_token %}
-                        {{ form.as_p }}
-                        <button class="btn btn-primary">Update</button>
-                </div>
+                {% if user.id == post.author.id %}
+                    <h1>Update post...</h1>
+                    <br/>
+                    <div class="form-group">
+                        <form method="POST">
+                            {% csrf_token %}
+                            {{ form.as_p }}
+                            <button class="btn btn-primary">Update</button>
+                    </div>
+                    {% else %}
+                        <p> You are not AUTHOR OF THIS IDEA! </p>
+                    {% endif %}
             {% else %}
                 <p>You are not allowed here.</p>
 

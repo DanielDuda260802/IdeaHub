@@ -8,14 +8,16 @@
 
     <body>
         {% block content %}
-            <h1>{{post.title}}</h1>
+            <h1>{{post.title}} </h1>
             {{post.category}}
             <br/>
             By: {{post.author.first_name}} {{post.author.last_name}}
             <small> {{post.post_date}} </small> 
             {% if user.is_authenticated %}
-                <small> <a href="{% url 'IdeaHub:update_post' post.pk %}"> (Edit) </a> </small> 
-                <small> <a href="{% url 'IdeaHub:delete_post' post.pk %}"> (Delete) </a> </small>
+                {% if user.id == post.author.id %}
+                    <small> <a href="{% url 'IdeaHub:update_post' post.pk %}"> (Edit) </a> </small> 
+                    <small> <a href="{% url 'IdeaHub:delete_post' post.pk %}"> (Delete) </a> </small>
+                {% endif %}
             {% endif %}
             <br/>
             <hr>
