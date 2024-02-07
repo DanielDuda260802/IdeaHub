@@ -22,8 +22,17 @@
             <br/>
             <hr>
             <br/>
-            <p>{{post.body|safe}}</p>  
+            <div class="post-content">{{ post.body|safe }}</div>   
 
+            <script>
+                document.addEventListener("DOMContentLoaded", function() {
+                    var images = document.querySelectorAll('.post-content img');
+                    images.forEach(function(img) {
+                        img.style.maxWidth = "100%";
+                        img.style.height = "auto";
+                    });
+                });
+            </script>
             <br/>
             <a href="{% url 'IdeaHub:homepage' %}" class="btn btn-primary">Povratak</a>
 

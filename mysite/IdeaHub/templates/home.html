@@ -1,33 +1,46 @@
 {% extends "base_generic.html" %}
+
 <!DOCTYPE html>
 <html>
-    <head>
-        <title>Home</title>
-    </head>
+<head>
+    <title>Home</title>
+</head>
 
-    <body>
-        {% block content %}
-            <h1>Objave</h1>
+<body>
+    {% block content %}
+        <h1>Objave</h1>
 
-            <ul>
-                {% for post in object_list %}
-                    <li>
-                        <a href="{% url 'IdeaHub:category' post.category|slugify %}">{{post.category}}:</a>
-                        <a href="{% url 'IdeaHub:idea_detail' post.pk %}">{{ post.title }}</a> - {{ post.author.first_name }} {{ post.author.last_name }} - 
-                        <small> {{post.post_date}} </small> 
+        <ul>
+            {% for post in object_list %}
+                <li>
+                    <a href="{% url 'IdeaHub:category' post.category|slugify %}">{{ post.category }}:</a>
+                    <a href="{% url 'IdeaHub:idea_detail' post.pk %}">{{ post.title }}</a> - {{ post.author.first_name }} {{ post.author.last_name }} - 
+                    <small> {{ post.post_date }} </small>  
 
-                        {% if user.is_authenticated %}
-                            {% if user.id == post.author.id %}
-                                <small> <a href="{% url 'IdeaHub:update_post' post.pk %}"> (Edit) </a> </small>
-                                <small> <a href="{% url 'IdeaHub:delete_post' post.pk %}"> (Delete) </a> </small>
-                            {% endif %}
-                        {% endif %}
+                    {% if user.is_authenticated and user.id == post.author.id %}
+                        <small> <a href="{% url 'IdeaHub:update_post' post.pk %}"> (Edit) </a> </small>
+                        <small> <a href="{% url 'IdeaHub:delete_post' post.pk %}"> (Delete) </a> </small>
+                    {% endif %}
 
-                        <br/>
-                        {{ post.body|slice:":200"|safe }}
-                    </li>
-                {% endfor %}
-            <ul>
-        {% endblock %}
-    </body>
+                    <br/>
+                    <div class="post-body">
+                        {{ post.body|safe }}
+                    </div>
+                    <a href="{% url 'IdeaHub:idea_detail' post.pk %}"><button class="btn btn-primary">Detaljniji prikaz</button></a>
+                    <br/> <br/>   
+
+                    <script>
+                        document.addEventListener("DOMContentLoaded", function() {
+                            var images = document.querySelectorAll('.post-body img');
+                            images.forEach(function(img) {
+                                img.style.maxWidth = "100%";
+                                img.style.height = "auto";
+                            });
+                        });
+                    </script>
+                </li>
+            {% endfor %}
+        <ul>
+    {% endblock %}
+</body>
 </html>

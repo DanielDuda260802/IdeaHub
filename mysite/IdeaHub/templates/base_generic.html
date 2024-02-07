@@ -38,6 +38,7 @@
                 </div>
               </li>
             {% endif %}
+
             {% if user.is_authenticated %}
 
               <li class="nav-item">
@@ -46,6 +47,10 @@
 
               <li class="nav-item">
                 <a class="nav-link" href="{% url 'IdeaHub:add_category' %}">Add category</a>
+              </li>
+
+              <li class="nav-item">
+                <a class="nav-link" href="{% url 'LoginApp:edit_profile' %}">Edit profile</a>
               </li>
 
               <li class="nav-item">

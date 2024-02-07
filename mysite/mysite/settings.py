@@ -127,3 +127,5 @@ DEFAULT_AUTO_FIELD = 'django.db.models.BigAutoField'
 
 LOGIN_REDIRECT_URL = 'IdeaHub:homepage'
 LOGOUT_REDIRECT_URL = 'IdeaHub:homepage'
+
+DATA_UPLOAD_MAX_MEMORY_SIZE = 10485760  # 10 * 1024 * 1024 bajtova

@@ -5,6 +5,7 @@ from .models import Post, Category
 from .forms import PostForm, EditForm
 from django.urls import reverse_lazy, reverse
 from django.http import HttpResponseRedirect
+from bs4 import BeautifulSoup
 
 ## Create your views here.
 class HomeView(ListView):
