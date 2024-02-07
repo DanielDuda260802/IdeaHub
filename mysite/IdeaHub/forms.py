@@ -19,7 +19,7 @@ class PostForm(forms.ModelForm):
             # 'type':'hidden' --> make TextInput hidden so users can't change the post's author
             'author': forms.TextInput(attrs={'class': 'form-control', 'value':'', 'id':'user', 'type':'hidden'}),  
             'category': forms.Select(choices=choice_list, attrs={'class': 'form-control'}),
-            'body': forms.Textarea(attrs={'class': 'form-control'})
+            'body': forms.HiddenInput(),
         }
 
 class EditForm(forms.ModelForm):
@@ -31,5 +31,5 @@ class EditForm(forms.ModelForm):
             'title': forms.TextInput(attrs={'class': 'form-control'}), # form-control --> Bootstrap item
             'title_tag': forms.TextInput(attrs={'class': 'form-control'}),
             'category': forms.Select(choices=choice_list, attrs={'class': 'form-control'}),
-            'body': forms.Textarea(attrs={'class': 'form-control'})
+            'body': forms.HiddenInput()
         }

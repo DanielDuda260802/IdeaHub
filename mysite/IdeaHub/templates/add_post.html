@@ -9,17 +9,48 @@
         {% block content %}
             {% if user.is_authenticated %}
                 <h1>Add post...</h1>
-                <br/>
-                <div class="form-group">
-                    <form method="POST">
-                        {% csrf_token %}
-                        {{ form.as_p }}
-                        <button class="btn btn-primary">Post</button>
-                </div>
+                <form method="POST" onsubmit="submitHandler()">
+                    {% csrf_token %}
+                    {{ form.as_p }}
+                    <br/>
+                    <br/>
+                    <div id="editor-container"></div> <!-- Quill editor će se inicijalizirati ovdje -->
+                    <button type="submit" class="btn btn-primary">Post</button>
+                </form>
                 <script>
                     var name = "{{ user.id }}";
                     document.getElementById("user").value = name
 
+                </script>
+                <script>
+                    var quill = new Quill('#editor-container', {
+                        theme: 'snow',
+                        modules: {
+                            toolbar: [
+                                ['bold', 'italic', 'underline', 'strike'], // bold, italic, underline, strike
+                                ['blockquote', 'code-block'], // blockquote, code-block
+                                [{ 'list': 'ordered'}, { 'list': 'bullet' }], // lists
+
+                                [{ 'script': 'sub'}, { 'script': 'super' }], // sub/super scripts
+                                [{ 'indent': '-1'}, { 'indent': '+1' }], // indent, outdent
+                                [{ 'direction': 'rtl' }], // text direction
+            
+                                [{ 'header': [1, 2, 3, 4, 5, 6, false] }],
+            
+                                [{ 'color': [] }, { 'background': [] }], // dropdown with defaults
+                                [{ 'font': [] }], 
+                                [{ 'align': [] }], // text align
+            
+                                ['link', 'image'] // link and image
+                            ]
+                        }
+                    });
+
+                    function submitHandler() {
+                        var html = quill.root.innerHTML;
+                        document.querySelector('input[name="body"]').value = html;
+                        return true;
+                    }
                 </script>
 
             {% else %}
