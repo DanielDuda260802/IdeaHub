@@ -54,8 +54,11 @@
               </li>
 
               <li class="nav-item">
-                <a class="nav-link" href="{% url 'logout' %}">Logout</a> <!-- django.contrib.auth.urls sadrži logout -->
+                <a class="nav-link" href="#" onclick="event.preventDefault(); document.getElementById('logout-form').submit();">Logout</a>
               </li>
+              <form id="logout-form" action="{% url 'logout' %}" method="post" style="display: none;">
+                {% csrf_token %}
+              </form>
 
             {% else %}
 
