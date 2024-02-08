@@ -22,7 +22,14 @@
             <br/>
             <hr>
             <br/>
-            <div class="post-content">{{ post.body|safe }}</div>   
+            
+            <div class="post-content">
+                {% if post.header_image %}
+                    <img src="{{ post.header_image.url }}"> 
+                    <br/><br/>
+                {% endif %}
+                {{ post.body|safe }}
+            </div>   
 
             <script>
                 document.addEventListener("DOMContentLoaded", function() {

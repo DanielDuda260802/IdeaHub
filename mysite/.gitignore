@@ -44,3 +44,9 @@ db.sqlite3-journal
 
 .DS_Store
 *.pyc
+
+# Media
+./media/*
+
+# Static
+./static/*

@@ -9,7 +9,7 @@
         {% block content %}
             {% if user.is_authenticated %}
                 <h1>Add post...</h1>
-                <form method="POST" onsubmit="submitHandler()">
+                <form method="POST" onsubmit="submitHandler()" enctype="multipart/form-data">
                     {% csrf_token %}
                     {{ form.as_p }}
                     <br/>
