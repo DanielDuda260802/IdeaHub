@@ -6,8 +6,8 @@ from django.views import generic
 from django.contrib.auth.forms import UserCreationForm, UserChangeForm, PasswordChangeForm
 from django.contrib.auth.views import PasswordChangeView
 from django.urls import reverse_lazy
-from .forms import SignUpForm, EditProfileForm, PasswordChangingForm
-from django.views.generic import DetailView, UpdateView
+from .forms import SignUpForm, EditProfileForm, PasswordChangingForm, ProfilePageForm
+from django.views.generic import DetailView, UpdateView, CreateView
 from IdeaHub.models import Profile
 
 # Create your views here.
@@ -48,3 +48,14 @@ class EditProfilePageView(UpdateView):
     template_name = 'registration/edit_profile_page.html'
     fields = ['bio', 'profile_picture', 'website_url', 'facebook_url', 'instagram_url', 'github_url']
     success_url = reverse_lazy('IdeaHub:homepage')
+
+class CreateProfilePageView(CreateView):
+    model = Profile
+    form_class = ProfilePageForm
+    template_name = 'registration/create_profile.html'
+
+    # making user ID available to profile 
+    # save form --> gets saved under the right user
+    def form_valid(self, form):
+        form.instance.user = self.request.user
+        return super().form_valid(form)

@@ -56,9 +56,12 @@
                 <div class="dropdown-menu">
 
                   <a class="dropdown-item" href="{% url 'loginapp:edit_profile' %}">Edit settings</a>
-                  <a class="dropdown-item" href="{% url 'loginapp:edit_profile_page' user.profile.id %}">Edit profile page</a>
-                  <a class="dropdown-item" href="{% url 'loginapp:show_profile' user.profile.id %}">Show profile</a>
-
+                  {% if user.profile.id %}
+                    <a class="dropdown-item" href="{% url 'loginapp:edit_profile_page' user.profile.id %}">Edit profile page</a>
+                    <a class="dropdown-item" href="{% url 'loginapp:show_profile' user.profile.id %}">Show profile</a>
+                  {% else %}
+                    <a class="dropdown-item" href="{% url 'loginapp:create_profile' %}">Create profile page</a>
+                  {% endif %}
                 </div>
               </li>
 
