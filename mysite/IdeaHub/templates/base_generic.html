@@ -1,3 +1,4 @@
+{% load static %}
 <!doctype html>
 <html lang="en">
   <head>
@@ -16,7 +17,9 @@
   </head>
   <body>
     <nav class="navbar navbar-expand-lg navbar-dark bg-dark">
-        <a class="navbar-brand" href="{% url 'IdeaHub:homepage' %}">IdeaHub</a>
+        <a class="navbar-brand" href="{% url 'IdeaHub:homepage' %}">
+          <img src="{% static 'Logo/IdeaHub_logo.png' %}" alt="IdeaHubLogo" height="100">
+        </a>
         <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
           <span class="navbar-toggler-icon"></span>
         </button>
@@ -49,11 +52,17 @@
                 <a class="nav-link" href="{% url 'IdeaHub:add_category' %}">Add category</a>
               </li>
 
+            {% endif %}
+
+          </ul>
+
+          <ul class="navbar-nav ml-auto">
+            {% if user.is_authenticated %}
               <li class="nav-item dropdown">
                 <a class="nav-link dropdown-toggle" href="#" role="button" data-toggle="dropdown" aria-expanded="false">
-                  Profile
+                  {{ user.username }}
                 </a>
-                <div class="dropdown-menu">
+                <div class="dropdown-menu dropdown-menu-right">
 
                   <a class="dropdown-item" href="{% url 'loginapp:edit_profile' %}">Edit settings</a>
                   {% if user.profile.id %}
@@ -62,29 +71,27 @@
                   {% else %}
                     <a class="dropdown-item" href="{% url 'loginapp:create_profile' %}">Create profile page</a>
                   {% endif %}
+
+                  <a class="dropdown-item" href="#" onclick="event.preventDefault(); document.getElementById('logout-form').submit();">
+                    Logout
+                    <form id="logout-form" action="{% url 'logout' %}" method="post" style="display: none;">
+                      {% csrf_token %}
+                    </form>
+                  </a>
                 </div>
               </li>
-
-              <li class="nav-item">
-                <a class="nav-link" href="#" onclick="event.preventDefault(); document.getElementById('logout-form').submit();">Logout</a>
-              </li>
-              <form id="logout-form" action="{% url 'logout' %}" method="post" style="display: none;">
-                {% csrf_token %}
-              </form>
-
             {% else %}
 
-              <li class="nav-item">
-                <a class="nav-link" href="{% url 'loginapp:register' %}">Register</a>
-              </li>
+            <li class="nav-item">
+              <a class="nav-link" href="{% url 'loginapp:register' %}">Register</a>
+            </li>
 
-              <li class="nav-item">
-                <a class="nav-link" href="{% url 'login' %}">Login</a> <!-- django.contrib.auth.urls sadrži login -->
-              </li>
+            <li class="nav-item">
+              <a class="nav-link" href="{% url 'login' %}">Login</a> <!-- django.contrib.auth.urls sadrži login -->
+            </li>
 
             {% endif %}
-
-          </ul>
+          </ul> 
         </div>
       </nav>
 

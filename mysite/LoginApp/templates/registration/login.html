@@ -12,7 +12,18 @@
             <div class="form-group">
                 <form method="POST">
                     {% csrf_token %}
-                    {{ form.as_p }}
+                    
+                    <div class="form-group">
+                        <label >Username </label>
+                        <input type="text" class="form-control" name="username" >
+                    </div>
+                    
+                    <div class="form-group">
+                        <label >Password</label>
+                        <input type="password" class="form-control" name="password">
+                        <small class="form-text text-muted">Not registrated? Sign Up<a href="{% url 'loginapp:register' %}"> here...</a> </small>
+                    </div>
+                    
                     <button class="btn btn-primary">Login</button>
             </div>
         {% endblock %}
