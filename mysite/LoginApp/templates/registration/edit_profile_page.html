@@ -1,0 +1,29 @@
+{% extends "base_generic.html" %}
+<!DOCTYPE html>
+<html>
+    <head>
+        <title>{% block title %} Edit profile page {% endblock %}</title>
+    </head>
+
+    <body>
+        {% block content %}
+            {% if user.is_authenticated %}
+                {% if user.id == profile.user.id %}
+                    <h1>Edit profile page...</h1>
+                    <br/>
+
+                    <div class="form-group">
+                        <form method="POST" enctype="multipart/form-data">
+                            {% csrf_token %}
+                            {{ form.as_p }}
+                            <button class="btn btn-primary">Update profile page</button>
+                    </div>
+                {% else %}
+                    <p> You are not the correct user to edit this profile!</p>
+                {% endif %}
+            {% else %}
+                <p> You are not AUTHOR OF THIS edit Profile page! </p>
+            {% endif %}
+        {% endblock %}
+    </body>
+</html>

@@ -84,20 +84,21 @@
 
                             <p class="small text-muted">
 
+                                <a href="{% url 'loginapp:show_profile' post.author.profile.id %}">Profile page</a>
                                 {% if post.author.profile.website_url %}
-                                    |<a href="{{post.author.profile.website_url}}">Website</a> 
+                                    |<a href="{{post.author.profile.website_url}}"> Website</a> 
                                 {% endif %}
 
                                 {% if post.author.profile.facebook_url %}
-                                    |<a href="{{post.author.profile.facebook_url}}">Facebook</a> 
+                                    |<a href="{{post.author.profile.facebook_url}}"> Facebook</a> 
                                 {% endif %}
 
                                 {% if post.author.profile.instagram_url %}
-                                    |<a href="{{post.author.profile.instagram_url}}">Instagram</a> 
+                                    |<a href="{{post.author.profile.instagram_url}}"> Instagram</a> 
                                 {% endif %}
 
                                 {% if post.author.profile.github_url %}
-                                    |<a href="{{post.author.profile.github_url}}">Github</a> 
+                                    |<a href="{{post.author.profile.github_url}}"> Github</a> 
                                 {% endif %}
 
                             </p>
