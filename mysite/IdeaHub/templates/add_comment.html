@@ -1,0 +1,24 @@
+{% extends "base_generic.html" %}
+<!DOCTYPE html>
+<html>
+    <head>
+        <title>{% block title %} Create a new comment on post {% endblock %}</title>
+    </head>
+
+    <body>
+        {% block content %}
+            {% if user.is_authenticated %}
+                <h1>Add comment...</h1>
+                <form method="POST">
+                    {% csrf_token %}
+                    {{ form.as_p }}
+                    <br/>
+                    <br/>
+                    <button type="submit" class="btn btn-primary">Add comment</button>
+                </form>
+            {% else %}
+                <p><a href="{% url 'login' %}">Login</a> to comment.</p>
+            {% endif %}
+        {% endblock %}
+    </body>
+</html>

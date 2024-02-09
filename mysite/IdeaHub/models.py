@@ -50,3 +50,16 @@ class Profile(models.Model):
     
     def get_absolute_url(self):
         return reverse('IdeaHub:homepage')
+    
+class Comment(models.Model):
+    post = models.ForeignKey(Post, related_name="comments", on_delete=models.CASCADE)
+    comment_author = models.ForeignKey(User, null=True, on_delete=models.CASCADE)
+    body = models.TextField()
+    date_added = models.DateField(auto_now_add=True)
+
+    def __str__(self):
+        return '%s - %s' % (self.post.title, self.comment_author)
+    
+    def get_absolute_url(self):
+        post_pk = self.post.pk
+        return reverse('IdeaHub:idea_detail', kwargs={'pk': post_pk})

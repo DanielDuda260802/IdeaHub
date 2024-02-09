@@ -1,8 +1,8 @@
 from typing import Any
 from django.shortcuts import render, get_object_or_404
 from django.views.generic import ListView, DetailView, CreateView, UpdateView, DeleteView
-from .models import Post, Category
-from .forms import PostForm, EditForm
+from .models import Post, Category, Comment
+from .forms import PostForm, EditForm, CommentForm, EditCommentForm
 from django.urls import reverse_lazy, reverse
 from django.http import HttpResponseRedirect
 from bs4 import BeautifulSoup
@@ -57,22 +57,10 @@ class UpdatePostView(UpdateView):
     form_class = EditForm
     template_name = 'update_post.html'
 
-    def get_context_data(self, *args, **kwargs ):
-        category_menu = Category.objects.all()
-        context = super(UpdatePostView, self).get_context_data(*args, **kwargs)
-        context["category_menu"] = category_menu
-        return context
-
 class DeletePostView(DeleteView):
     model = Post
     template_name = 'delete_post.html'
     success_url = reverse_lazy('IdeaHub:homepage')
-
-    def get_context_data(self, *args, **kwargs ):
-        category_menu = Category.objects.all()
-        context = super(DeletePostView, self).get_context_data(*args, **kwargs)
-        context["category_menu"] = category_menu
-        return context
 
 def CategoryView(request, categories):
     category_post = Post.objects.filter(category=categories.replace('-', ' '))
@@ -88,3 +76,30 @@ def LikeView(request, pk):
         post.likes.add(request.user)
         liked = True
     return HttpResponseRedirect(reverse('IdeaHub:idea_detail', args=[str(pk)]))
+
+class AddComment(CreateView):
+    model = Comment
+    template_name = 'add_comment.html'
+    form_class = CommentForm
+   
+    def get_success_url(self):
+        post_pk = self.object.post.pk
+        return reverse('IdeaHub:idea_detail', kwargs={'pk': post_pk})
+
+    def form_valid(self, form):
+        form.instance.comment_author = self.request.user
+        form.instance.post_id = self.kwargs['pk']
+        return super().form_valid(form)
+    
+class UpdateCommentView(UpdateView):
+    model = Comment
+    form_class = EditCommentForm
+    template_name = 'update_comment.html'
+
+class DeleteCommentView(DeleteView):
+    model = Comment
+    template_name = 'delete_comment.html'
+    
+    def get_success_url(self):
+        comment = get_object_or_404(Comment, pk=self.kwargs['pk'])
+        return reverse_lazy('IdeaHub:idea_detail', kwargs={'pk': comment.post.pk})

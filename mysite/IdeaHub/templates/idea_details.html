@@ -62,7 +62,7 @@
                 {% endif %}
                 - {{ total_likes }} Likes
             </form>
-            
+
             <br/><br/>
 
             <div class="card mb-3">
@@ -111,6 +111,31 @@
                     </div>
                 </div>
             </div>
+
+            <br/>
+            <hr>
+            <h2>Comments...</h2>
+
+            {% if not post.comments.all %} <!-- related_name = "comments" -->
+                <p>No comments yet.</p> 
+                <a href="{% url 'IdeaHub:add_comment' post.pk %}">Add comment</a>
+            {% else %}
+                <br/><br/>
+                {% for comment in post.comments.all %}
+                    <strong>{{ comment.comment_author }} - {{ comment.date_added }}</strong>
+                    {% if post.author.id == user.id or user.id == comment.comment_author.id %}
+                        <a href="{% url 'IdeaHub:update_comment' comment.pk %}">Edit</a>
+                        <a href="{% url 'IdeaHub:delete_comment' comment.pk %}">Delete</a>
+                    {% endif %}
+                    <br/>
+                    <p>{{comment.body}}</p> 
+                {% endfor %}
+                <a href="{% url 'IdeaHub:add_comment' post.pk %}">Add comment</a>
+            {% endif %}
+
+            
+
+            
 
         {% endblock %}
     </body>
