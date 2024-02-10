@@ -1,0 +1,9 @@
+<script>
+document.addEventListener("DOMContentLoaded", function() {
+    var navbarHeight = document.querySelector('.navbar').offsetHeight; // Dohvati visinu navigacijske trake
+    var logo = document.querySelector('.navbar-brand img.logo'); // Dohvati logo
+    if (logo) {
+        logo.style.height = navbarHeight + 'px'; // Postavi visinu loga na visinu navigacijske trake
+    }
+});
+</script>

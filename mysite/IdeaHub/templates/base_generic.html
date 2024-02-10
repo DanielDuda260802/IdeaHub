@@ -6,6 +6,8 @@
     <meta charset="utf-8">
     <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
 
+    <link rel="stylesheet" type="text/css" href="{% static 'style.css' %}">
+
     <!-- Bootstrap CSS -->
     <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@4.6.2/dist/css/bootstrap.min.css" integrity="sha384-xOolHFLEh07PJGoPkLv1IbcEPTNtaed2xpHsD9ESMhqIYd0nLMwNLD69Npy4HI+N" crossorigin="anonymous">
 
@@ -15,54 +17,82 @@
 
     <title>{% block title %}IdeaHub {% endblock %}</title>
   </head>
+
   <body>
-    <nav class="navbar navbar-expand-lg navbar-dark bg-dark">
-        <a class="navbar-brand" href="{% url 'IdeaHub:homepage' %}">
-          <img src="{% static 'Logo/IdeaHub_logo.png' %}" alt="IdeaHubLogo" height="100">
-        </a>
-        <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
-          <span class="navbar-toggler-icon"></span>
-        </button>
-      
-        <div class="collapse navbar-collapse" id="navbarSupportedContent">
-          <ul class="navbar-nav mr-auto">
+    <!-- Navbar -->
+    <nav class="navbar navbar-expand-lg navbar-dark navbar-custom">
 
+        <!-- left side -->
+      <div class="collapse navbar-collapse order-lg-1 order-3 navigation-menu">
+        <ul class="navbar-nav mr-auto">
+
+          {% if user.is_authenticated %}
+            <li class="nav-item">
+              <a class="nav-link active" href="{% url 'IdeaHub:homepage' %}">Home</a>
+            </li>
             <!-- Category Menu Code -->
-
             {% if category_menu %}
               <li class="nav-item dropdown">
-                <a class="nav-link dropdown-toggle" href="#" role="button" data-toggle="dropdown" aria-expanded="false">
+                <a class="nav-link dropdown-toggle active" href="#" role="button" data-toggle="dropdown" aria-expanded="false">
+                  Category
+                </a>
+              <div class="dropdown-menu">
+                {% for item in category_menu %}
+                  <a class="dropdown-item" href="{% url 'IdeaHub:category' item|slugify %}">{{item}}</a>
+                {% endfor %}
+              </div>
+              </li>
+            {% endif %}
+              <li class="nav-item">
+                <a class="nav-link active" href="{% url 'IdeaHub:add_post' %}">Add post</a>
+              </li>
+              <li class="nav-item">
+                <a class="nav-link active" href="{% url 'IdeaHub:add_category' %}">Add category</a>
+              </li> 
+          {% else %}
+            <li class="nav-item">
+              <a class="nav-link active" href="{% url 'IdeaHub:homepage' %}">Home</a>
+            </li>
+            <!-- Category Menu Code -->
+            {% if category_menu %}
+              <li class="nav-item dropdown">
+                <a class="nav-link dropdown-toggle active" href="#" role="button" data-toggle="dropdown" aria-expanded="false">
                   Kategorije
                 </a>
-                <div class="dropdown-menu">
-                  {% for item in category_menu %}
+              <div class="dropdown-menu">
+                {% for item in category_menu %}
                   <a class="dropdown-item" href="{% url 'IdeaHub:category' item|slugify %}">{{item}}</a>
-                  {% endfor %}
-                </div>
+                {% endfor %}
+              </div>
               </li>
             {% endif %}
+          {% endif %}
+        </ul>
+      </div>
 
-            {% if user.is_authenticated %}
+      <!-- Logo -->
+      <a class="navbar-brand order-1 mr-lg-0" href="{% url 'IdeaHub:homepage' %}">
+        <img class="logo" src="{% static "Logo/IdeaHub.png" %}" width="100">
+      </a>
+      <button class="navbar-toggler order-2" type="button" data-toggle="collapse" data-target=".navigation-menu">
+        <span class="navbar-toggler-icon"></span>
+      </button>
 
-              <li class="nav-item">
-                <a class="nav-link" href="{% url 'IdeaHub:add_post' %}">Add post</a>
-              </li>
-
-              <li class="nav-item">
-                <a class="nav-link" href="{% url 'IdeaHub:add_category' %}">Add category</a>
-              </li>
-
-            {% endif %}
-
-          </ul>
-
+        <!-- right side-->
+        <div class="collapse navbar-collapse order-lg-3 order-4 navigation-menu">
           <ul class="navbar-nav ml-auto">
             {% if user.is_authenticated %}
               <li class="nav-item dropdown">
-                <a class="nav-link dropdown-toggle" href="#" role="button" data-toggle="dropdown" aria-expanded="false">
+                <a class="nav-link dropdown-toggle active" href="#" role="button" data-toggle="dropdown" aria-expanded="false">
                   {{ user.username }}
                 </a>
-                <div class="dropdown-menu dropdown-menu-right">
+               <div class="dropdown-menu dropdown-menu-right">
+                <!-- Profilna slika i korisničko ime -->
+                  <div class="px-2 py-1 text-center" >
+                    <img src="{{ user.profile.profile_picture.url }}" class="profile-image">
+                    <div style="color:black">{{ user.username }}</div>
+                  </div>
+                  <div class="dropdown-divider"></div>
 
                   <a class="dropdown-item" href="{% url 'loginapp:edit_profile' %}">Edit settings</a>
                   {% if user.profile.id %}
@@ -71,9 +101,10 @@
                   {% else %}
                     <a class="dropdown-item" href="{% url 'loginapp:create_profile' %}">Create profile page</a>
                   {% endif %}
-
+                  
+                  <div class="dropdown-divider"></div>
                   <a class="dropdown-item" href="#" onclick="event.preventDefault(); document.getElementById('logout-form').submit();">
-                    Logout
+                    <img src="{% static 'Icons/log-out.svg' %}" alt="Log Out" style="height: 20px;"/> Logout
                     <form id="logout-form" action="{% url 'logout' %}" method="post" style="display: none;">
                       {% csrf_token %}
                     </form>
@@ -83,13 +114,13 @@
             {% else %}
 
             <li class="nav-item">
-              <a class="nav-link" href="{% url 'loginapp:register' %}">Register</a>
+              <a class="nav-link active" href="{% url 'loginapp:register' %}">Register</a>
             </li>
-
+  
             <li class="nav-item">
-              <a class="nav-link" href="{% url 'login' %}">Login</a> <!-- django.contrib.auth.urls sadrži login -->
+              <a class="nav-link active" href="{% url 'login' %}">Login</a> <!-- django.contrib.auth.urls sadrži login -->
             </li>
-
+  
             {% endif %}
           </ul> 
         </div>
