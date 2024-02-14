@@ -1,3 +1,5 @@
+/* base_generic.html */
+
 @media(min-width:992px){
     .navbar-expand-lg .navbar-collapse{
         width: 100%;
@@ -7,7 +9,7 @@
 .navbar-custom .navbar-nav .nav-link, 
 .navbar-custom .navbar-brand, 
 .navbar-custom .navbar-toggler-icon {
-    color: #eeba2c !important;
+    color: #FFC40A !important;
     font-size: 20px; 
     font-weight: bold;
   }
@@ -17,7 +19,7 @@
 }
 
 div.dropdown-menu{
-    background-color: #eeba2c;
+    background-color: #FFC40A;
 }
 
 div.dropdown-menu a.dropdown-item {
@@ -31,7 +33,7 @@ div.dropdown-menu a.dropdown-item {
 
 div.dropdown-menu a.dropdown-item:hover{
     background-color: #000000;
-    color: #eeba2c;
+    color: #FFC40A;
 }
 
 .profile-dropdown img{
@@ -51,3 +53,46 @@ div.dropdown-menu a.dropdown-item:hover{
     vertical-align: middle; 
     margin-right: 5px;
   }
+
+.container-fluid {
+    background-color: #679BF1;
+}
+
+/* home.html */
+
+.card {
+    background-color: #F8DE7E !important;
+    margin-bottom: 15px;
+    border: 2px solid #000 !important;
+}
+
+.card-title a{
+    color: #000000;
+    text-decoration: none;
+}
+
+.card-title a:hover {
+    text-decoration: underline; 
+}
+
+.card-title .edit a {
+    color: #679BF1;
+}
+
+.card-title .delete a {
+    color: #dc3545; 
+}
+
+.card-title .edit a:hover {
+    color: blue;
+    text-decoration: none;
+}
+.card-title .delete a:hover {
+    color: #bd2130;
+    text-decoration: none; 
+}
+
+.category {
+    text-transform: capitalize;
+}
+

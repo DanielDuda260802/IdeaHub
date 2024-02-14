@@ -6,6 +6,7 @@
     <meta charset="utf-8">
     <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
 
+    <!-- CSS -->
     <link rel="stylesheet" type="text/css" href="{% static 'style.css' %}">
 
     <!-- Bootstrap CSS -->
@@ -19,8 +20,9 @@
   </head>
 
   <body>
-    <!-- Navbar -->
-    <nav class="navbar navbar-expand-lg navbar-dark navbar-custom">
+    <header>
+      <!-- Navbar -->
+      <nav class="navbar navbar-expand-lg navbar-dark navbar-custom">
 
         <!-- left side -->
       <div class="collapse navbar-collapse order-lg-1 order-3 navigation-menu">
@@ -86,7 +88,7 @@
                 <a class="nav-link dropdown-toggle active" href="#" role="button" data-toggle="dropdown" aria-expanded="false">
                   {{ user.username }}
                 </a>
-               <div class="dropdown-menu dropdown-menu-right">
+              <div class="dropdown-menu dropdown-menu-right">
                 <!-- Profilna slika i korisničko ime -->
                   <div class="px-2 py-1 text-center" >
                     <img src="{{ user.profile.profile_picture.url }}" class="profile-image">
@@ -116,18 +118,17 @@
             <li class="nav-item">
               <a class="nav-link active" href="{% url 'loginapp:register' %}">Register</a>
             </li>
-  
+
             <li class="nav-item">
               <a class="nav-link active" href="{% url 'login' %}">Login</a> <!-- django.contrib.auth.urls sadrži login -->
             </li>
-  
+
             {% endif %}
           </ul> 
         </div>
       </nav>
-
-    <br/>
-    <div class="container">
+</header>
+    <div class="container-fluid">
         {% block content %}
 
         {% endblock %}
