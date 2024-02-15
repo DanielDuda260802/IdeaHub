@@ -55,7 +55,14 @@ div.dropdown-menu a.dropdown-item:hover{
   }
 
 .container-fluid {
+    display: flex;
+    flex-direction: column;
+    min-height: 100vh;
     background-color: #2F2E2C;
+}
+
+main {
+    flex-grow: 1;
 }
 
 /* home.html */
@@ -154,7 +161,6 @@ div.dropdown-menu a.dropdown-item:hover{
 }
 
 /* add_post.html */
-
 .seven h1 {
     text-align: center;
     font-size:30px; font-weight:300; color:white; letter-spacing:1px;
@@ -242,3 +248,34 @@ form {
     color: #FFC40A; 
     text-transform: capitalize;
 }
+
+/* delete_post */
+.nine h1 {
+    text-align:center; font-size:50px; text-transform:uppercase; color:#FFC40A; letter-spacing:1px;
+    font-family:"Playfair Display", serif; font-weight:400;
+  }
+  .nine h1 span {
+    margin-top: 5px;
+      font-size:15px; color:#F8DE7E; word-spacing:1px; font-weight:normal; letter-spacing:2px;
+      text-transform: uppercase; font-family:"Raleway", sans-serif; font-weight:500;
+  
+      display: grid;
+      grid-template-columns: 1fr max-content 1fr;
+      grid-template-rows: 27px 0;
+      grid-gap: 20px;
+      align-items: center;
+  }
+  
+  .nine h1 span:after,.nine h1 span:before {
+      content: " ";
+      display: block;
+      border-bottom: 1px solid #FFC40A;
+      border-top: 1px solid #FFC40A;
+      height: 5px;
+    background-color:#f8f8f8;
+  }
+
+  strong {
+    color: #000000;
+    font-size: x-large;
+  }

@@ -2,56 +2,64 @@
 <!DOCTYPE html>
 <html>
     <head>
-        <title>{% block title %} Update post {% endblock %}</title>
+        <title>{% block title %} Edit Post {% endblock %}</title>
     </head>
 
     <body>
         {% block content %}
             {% if user.is_authenticated %}
                 {% if user.id == post.author.id %}
-                    <h1>Update post...</h1>
-                    <br/>
-                    <div class="form-group">
-                        <form method="POST" onsubmit="return submitHandler();">
-                            {% csrf_token %}
-                            {{ form.as_p }}
-                            <div id="editor-container"></div>
-                            <button class="btn btn-primary">Update</button>
+                <div class="container">
+                    <div class="row">
+                        <div class="col-md-8 offset-md-2 col-lg-10 offset-lg-1">
+                            <div class="seven">
+                                <h1>Edit Post</h1>
+                            </div>
+                            
+                            <div class="form-group">
+                                <form method="POST" onsubmit="return submitHandler();">
+                                    {% csrf_token %}
+                                    {{ form.as_p }}
+                                    <div id="editor-container"></div>
+                                    <div class="d-flex justify-content-center">
+                                        <button type="submit" class="btn btn-Post">Update</button>
+                                    </div>
+                            </div>
+                            <script>
+                                var quill = new Quill('#editor-container', {
+                                    theme: 'snow',
+                                    modules: {
+                                        toolbar: [
+                                            ['bold', 'italic', 'underline', 'strike'], // bold, italic, underline, strike
+                                            ['blockquote', 'code-block'], // blockquote, code-block
+                                            [{ 'list': 'ordered'}, { 'list': 'bullet' }], // lists
+
+                                            [{ 'script': 'sub'}, { 'script': 'super' }], // sub/super scripts
+                                            [{ 'indent': '-1'}, { 'indent': '+1' }], // indent, outdent
+                                            [{ 'direction': 'rtl' }], // text direction
+                        
+                                            [{ 'header': [1, 2, 3, 4, 5, 6, false] }],
+                        
+                                            [{ 'color': [] }, { 'background': [] }], // dropdown with defaults
+                                            [{ 'font': [] }], 
+                                            [{ 'align': [] }], // text align
+                        
+                                            ['link', 'image'] // link and image
+                                        ]
+                                    }
+                                });
+                                
+                                // Pretpostavimo da vaš Django form već ima skriveno polje 'body' generirano kroz {{ form.body }}
+                                quill.root.innerHTML = "{{ post.body|safe }}"; // Postavite početni sadržaj u Quill editor
+                                
+                                function submitHandler() {
+                                    // Kopirajte HTML sadržaj iz Quill uređivača u skriveno input polje prije slanja forme
+                                    document.querySelector('input[name="body"]').value = quill.root.innerHTML;
+                                    return true;
+                                }
+                            </script>
+                        </div>
                     </div>
-                    <script>
-                        var quill = new Quill('#editor-container', {
-                            theme: 'snow',
-                            modules: {
-                                toolbar: [
-                                    ['bold', 'italic', 'underline', 'strike'], // bold, italic, underline, strike
-                                    ['blockquote', 'code-block'], // blockquote, code-block
-                                    [{ 'list': 'ordered'}, { 'list': 'bullet' }], // lists
-
-                                    [{ 'script': 'sub'}, { 'script': 'super' }], // sub/super scripts
-                                    [{ 'indent': '-1'}, { 'indent': '+1' }], // indent, outdent
-                                    [{ 'direction': 'rtl' }], // text direction
-                
-                                    [{ 'header': [1, 2, 3, 4, 5, 6, false] }],
-                
-                                    [{ 'color': [] }, { 'background': [] }], // dropdown with defaults
-                                    [{ 'font': [] }], 
-                                    [{ 'align': [] }], // text align
-                
-                                    ['link', 'image'] // link and image
-                                ]
-                            }
-                        });
-                        
-                        // Pretpostavimo da vaš Django form već ima skriveno polje 'body' generirano kroz {{ form.body }}
-                        quill.root.innerHTML = "{{ post.body|safe }}"; // Postavite početni sadržaj u Quill editor
-                        
-                        function submitHandler() {
-                            // Kopirajte HTML sadržaj iz Quill uređivača u skriveno input polje prije slanja forme
-                            document.querySelector('input[name="body"]').value = quill.root.innerHTML;
-                            return true;
-                        }
-                    </script>
-
                     {% else %}
                         <p> You are not AUTHOR OF THIS IDEA! </p>
                     {% endif %}

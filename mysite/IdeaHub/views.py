@@ -2,7 +2,7 @@ from typing import Any
 from django.shortcuts import render, get_object_or_404
 from django.views.generic import ListView, DetailView, CreateView, UpdateView, DeleteView
 from .models import Post, Category, Comment
-from .forms import PostForm, EditForm, CommentForm, EditCommentForm
+from .forms import PostForm, EditForm, CommentForm, EditCommentForm, CategoryForm
 from django.urls import reverse_lazy, reverse
 from django.http import HttpResponseRedirect
 from bs4 import BeautifulSoup
@@ -44,7 +44,7 @@ class AddPostView(CreateView):
 class AddCategoryView(CreateView):
     model = Category
     template_name = 'add_category.html' 
-    fields = '__all__'
+    form_class = CategoryForm
 
     def get_context_data(self, *args, **kwargs ):
         category_menu = Category.objects.all()

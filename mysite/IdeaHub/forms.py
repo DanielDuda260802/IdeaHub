@@ -22,6 +22,15 @@ class PostForm(forms.ModelForm):
             'header_image': forms.FileInput(attrs={'class': 'form-control-file'})
         }
 
+class CategoryForm(forms.ModelForm):
+    class Meta:
+        model = Category
+        fields = ('name',)
+
+        widgets = {
+            'name': forms.TextInput(attrs={'class': 'form-control', 'placeholder': 'Enter the name of a new category'}), # form-control --> Bootstrap item
+        }
+
 class EditForm(forms.ModelForm):
     class Meta:
         model = Post
