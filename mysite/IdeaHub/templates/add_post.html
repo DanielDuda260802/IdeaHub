@@ -1,4 +1,6 @@
 {% extends "base_generic.html" %}
+{% load static %}
+
 <!DOCTYPE html>
 <html>
     <head>
@@ -8,49 +10,59 @@
     <body>
         {% block content %}
             {% if user.is_authenticated %}
-                <h1>Add post...</h1>
-                <form method="POST" onsubmit="submitHandler()" enctype="multipart/form-data">
-                    {% csrf_token %}
-                    {{ form.as_p }}
-                    <br/>
-                    <br/>
-                    <div id="editor-container"></div> <!-- Quill editor će se inicijalizirati ovdje -->
-                    <button type="submit" class="btn btn-primary">Post</button>
-                </form>
-                <script>
-                    var name = "{{ user.id }}";
-                    document.getElementById("user").value = name
-                </script>
-                <script>
-                    var quill = new Quill('#editor-container', {
-                        theme: 'snow',
-                        modules: {
-                            toolbar: [
-                                ['bold', 'italic', 'underline', 'strike'], // bold, italic, underline, strike
-                                ['blockquote', 'code-block'], // blockquote, code-block
-                                [{ 'list': 'ordered'}, { 'list': 'bullet' }], // lists
+            <div class="container">
+                <div class="row">
+                    <div class="col-md-8 offset-md-2 col-lg-10 offset-lg-1">
+                        <div class="seven">
+                            <h1>New Post</h1>
+                        </div>
+                        <form method="POST" onsubmit="submitHandler()" enctype="multipart/form-data">
+                            {% csrf_token %}
+                            {{ form.as_p }}
+                            <div id="editor-container"></div> <!-- Quill editor će se inicijalizirati ovdje -->
+                            <div class="d-flex justify-content-center">
+                                <button type="submit" class="btn btn-Post">Post</button>
+                            </div>
+                        </form>
+                        <script>
+                            var name = "{{ user.id }}";
+                            document.getElementById("user").value = name
+                        </script>
+                        <script>
+                            var quill = new Quill('#editor-container', {
+                                theme: 'snow',
+                                modules: {
+                                    toolbar: [
+                                        ['bold', 'italic', 'underline', 'strike'], // bold, italic, underline, strike
+                                        ['blockquote', 'code-block'], // blockquote, code-block
+                                        [{ 'list': 'ordered'}, { 'list': 'bullet' }], // lists
 
-                                [{ 'script': 'sub'}, { 'script': 'super' }], // sub/super scripts
-                                [{ 'indent': '-1'}, { 'indent': '+1' }], // indent, outdent
-                                [{ 'direction': 'rtl' }], // text direction
-            
-                                [{ 'header': [1, 2, 3, 4, 5, 6, false] }],
-            
-                                [{ 'color': [] }, { 'background': [] }], // dropdown with defaults
-                                [{ 'font': [] }], 
-                                [{ 'align': [] }], // text align
-            
-                                ['link', 'image'] // link and image
-                            ]
-                        }
-                    });
+                                        [{ 'script': 'sub'}, { 'script': 'super' }], // sub/super scripts
+                                        [{ 'indent': '-1'}, { 'indent': '+1' }], // indent, outdent
+                                        [{ 'direction': 'rtl' }], // text direction
+                    
+                                        [{ 'header': [1, 2, 3, 4, 5, 6, false] }],
+                    
+                                        [{ 'color': [] }, { 'background': [] }], // dropdown with defaults
+                                        [{ 'font': [] }], 
+                                        [{ 'align': [] }], // text align
+                    
+                                        ['link', 'image'] // link and image
+                                    ]
+                                }
+                            });
 
-                    function submitHandler() {
-                        var html = quill.root.innerHTML;
-                        document.querySelector('input[name="body"]').value = html;
-                        return true;
-                    }
-                </script>
+                            function submitHandler() {
+                                var html = quill.root.innerHTML;
+                                document.querySelector('input[name="body"]').value = html;
+                                return true;
+                            }
+                        </script>
+                    </div>
+                </div>
+            </div>
+            
+                
 
             {% else %}
                 <p> You are not allowed here.</p>

@@ -6,15 +6,15 @@
     <meta charset="utf-8">
     <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
 
-    <!-- CSS -->
-    <link rel="stylesheet" type="text/css" href="{% static 'style.css' %}">
-
     <!-- Bootstrap CSS -->
     <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@4.6.2/dist/css/bootstrap.min.css" integrity="sha384-xOolHFLEh07PJGoPkLv1IbcEPTNtaed2xpHsD9ESMhqIYd0nLMwNLD69Npy4HI+N" crossorigin="anonymous">
 
     <!-- Quill JS -->
     <link href="https://cdn.quilljs.com/1.3.6/quill.snow.css" rel="stylesheet">
     <script src="https://cdn.quilljs.com/1.3.6/quill.js"></script>
+
+    <!-- CSS -->
+    <link rel="stylesheet" type="text/css" href="{% static 'style.css' %}">
 
     <title>{% block title %}IdeaHub {% endblock %}</title>
   </head>
@@ -36,7 +36,7 @@
             {% if category_menu %}
               <li class="nav-item dropdown">
                 <a class="nav-link dropdown-toggle active" href="#" role="button" data-toggle="dropdown" aria-expanded="false">
-                  Category
+                  Categories
                 </a>
               <div class="dropdown-menu">
                 {% for item in category_menu %}
@@ -59,7 +59,7 @@
             {% if category_menu %}
               <li class="nav-item dropdown">
                 <a class="nav-link dropdown-toggle active" href="#" role="button" data-toggle="dropdown" aria-expanded="false">
-                  Kategorije
+                  Categories
                 </a>
               <div class="dropdown-menu">
                 {% for item in category_menu %}

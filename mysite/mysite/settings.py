@@ -39,7 +39,8 @@ INSTALLED_APPS = [
     'django.contrib.messages',
     'django.contrib.staticfiles',
     'IdeaHub.apps.IdeahubConfig',
-    'LoginApp.apps.LoginappConfig'
+    'LoginApp.apps.LoginappConfig',
+    'widget_tweaks',
 ]
 
 MIDDLEWARE = [

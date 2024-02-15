@@ -55,10 +55,67 @@ div.dropdown-menu a.dropdown-item:hover{
   }
 
 .container-fluid {
-    background-color: #679BF1;
+    background-color: #2F2E2C;
 }
 
 /* home.html */
+
+.header img {
+    max-width: 100%; 
+    height: auto;      
+    padding-bottom: 5px;
+}
+
+.jumbotron {
+    background-color: #FFC40A !important; /* Promijenite u željenu boju pozadine */
+    text-align: center; /* Centrira tekst i gumbe unutar .jumbotron */
+    padding: 10px; /* Dodaje prostor unutar .jumbotron za bolji izgled */
+    margin-bottom: 10px; /* Dodaje razmak ispod .jumbotron ako je potrebno */
+}
+
+.jumbotron p {
+    font-size: 16px; /* Osnovna veličina fonta za male uređaje */
+}
+
+/* Za srednje uređaje (tablete, preko 768px) */
+@media (min-width: 768px) {
+    .jumbotron p {
+        font-size: 18px; /* Veća veličina fonta */
+    }
+}
+
+/* Za velike uređaje (desktop, preko 992px) */
+@media (min-width: 992px) {
+    .jumbotron p {
+        font-size: 20px; /* Još veća veličina fonta */
+    }
+}
+
+/* Za ekstra velike uređaje (veliki desktop, preko 1200px) */
+@media (min-width: 1200px) {
+    .jumbotron p {
+        font-size: 22px; /* Najveća veličina fonta */
+    }
+}
+
+
+.jumbotron button {
+    margin: 5px;
+    background-color: #000000;
+    color: #FFC40A;
+    border: none;
+    padding: 10px 20px;
+    font-size: 18px;
+    border-radius: 10px;
+    transition: background-color 0.3s, color 0.3s;
+    font-weight: bold;
+}
+
+.jumbotron button:hover {
+    background-color: #F8DE7E;
+    color: #000000;
+    cursor: pointer;
+}
 
 .card {
     background-color: #F8DE7E !important;
@@ -96,3 +153,92 @@ div.dropdown-menu a.dropdown-item:hover{
     text-transform: capitalize;
 }
 
+/* add_post.html */
+
+.seven h1 {
+    text-align: center;
+    font-size:30px; font-weight:300; color:white; letter-spacing:1px;
+    text-transform: uppercase;
+    font-weight: bold;
+    padding-top: 20px;
+    
+    display: grid;
+    grid-template-columns: 1fr max-content 1fr;
+    grid-template-rows: 27px 0;
+    grid-gap: 20px;
+    align-items: center;
+}
+    
+.seven h1:after,.seven h1:before {
+    content: " ";
+    display: block;
+    border-bottom: 2px solid #FFC40A;
+    border-top: 2px solid #FFC40A;
+    height: 5px;
+    background-color:white;
+}
+
+.btn-Post {
+    background-color: #000000;
+    color: #FFC40A;
+    border: none;
+    padding: 10px 20px;
+    font-size: 18px;
+    border-radius: 10px;
+    transition: background-color 0.3s, color 0.3s;
+    font-weight: bold;
+    margin-top: 15px;
+    text-transform: uppercase;
+}
+
+form {
+    background-color: #FFC40A; 
+    padding: 20px; 
+    border-radius: 15px; 
+}
+
+
+#editor-container {
+    width: 100%;
+    height: 300px; 
+}
+
+#editor-container .ql-editor {
+    background-color: white;
+    color: #000000; 
+}
+
+.ql-toolbar {
+    background-color: lightgray;
+    border-radius: 5px; 
+}
+
+.form-control, .form-control:focus {
+    background-color: black;
+    color: #FFC40A;
+    font-weight: bold;
+    border-color: #000000; 
+}
+
+.form-control::placeholder{
+    color: white;
+    font-weight: normal;
+}
+
+.form-control:active{
+    background-color: black;
+    color: #FFC40A;
+    font-weight: bold;
+}
+
+.form-control.custom-select, .form-control.custom-select:active, .form-control.custom-select:focus {
+    background-color: #000000;
+    color: #FFC40A;
+    font-weight: bold;
+}
+
+.form-control.custom-select option {
+    background-color: #000000; 
+    color: #FFC40A; 
+    text-transform: capitalize;
+}
