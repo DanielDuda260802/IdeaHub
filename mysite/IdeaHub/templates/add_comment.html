@@ -17,7 +17,20 @@
                     <button type="submit" class="btn btn-primary">Add comment</button>
                 </form>
             {% else %}
-                <p><a href="{% url 'login' %}">Login</a> to comment.</p>
+                <div class="container">
+                    <div class="row">
+                        <div class="col-md-8 offset-md-2 col-lg-10 offset-lg-1">
+                            <div class="seven">
+                                <h1>Access Denied</h1>
+                            </div>
+                            <div class="access_denied">
+                                <p style="font-size: calc(0.5vw + 1rem);">You need to be logged in to view this page.</p>  
+                                <a href="{% url 'login' %}" class="btn btn-Post" style="margin-bottom:5px;">Log In</a>
+                                <p>Don't have an account? <a href="{% url 'loginapp:register' %}">Register here</a>.</p>
+                            </div>
+                        </div>
+                    </div>
+                </div>
             {% endif %}
         {% endblock %}
     </body>

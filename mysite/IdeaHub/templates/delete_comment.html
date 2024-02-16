@@ -9,19 +9,51 @@
         {% block content %}
             {% if user.is_authenticated %}
                 {% if user.id == comment.comment_author.id %}
-                    <h1>Delete comment...</h1>
-                    <br/>
-                    <div class="form-group">
-                        <form method="POST">
-                            {% csrf_token %}
-                            <strong>Are you sure?<strong><br/>
-                            <button class="btn btn-primary">Delete comment!</button>
-                    </div>
+                <div class="container">
+                    <div class="row">
+                        <div class="col-md-8 offset-md-2 col-lg-10 offset-lg-1">
+                            <div class="nine">
+                                <h1>Delete comment</h1>
+                            </div>
+
+                        <div class="form-group">
+                            <form method="POST">
+                                {% csrf_token %}
+                                <strong>Are you sure?<strong><br/>
+                                <div class="d-flex justify-content-center">
+                                    <button type="submit" class="btn btn-Post">Delete comment!</button>
+                                </div>
+                        </div>
                 {% else %}
-                    <p> You are not AUTHOR OF THIS IDEA! </p>
+                    <div class="container">
+                        <div class="row">
+                            <div class="col-md-8 offset-md-2 col-lg-10 offset-lg-1">
+                                <div class="seven">
+                                    <h1>Unauthorized Action</h1>
+                                </div>
+                                <div class="access_denied">
+                                    <p style="font-size: calc(0.5vw + 1rem);">You are not authorized to delete this comment because you are not the author.</p>  
+                                    <a href="{% url 'IdeaHub:homepage' %}" class="btn btn-Post" style="margin-bottom:5px;">Return to Homepage</a>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
                 {% endif %}
             {% else %}
-                <p> You are not allowed here.</p>
+                <div class="container">
+                    <div class="row">
+                        <div class="col-md-8 offset-md-2 col-lg-10 offset-lg-1">
+                            <div class="seven">
+                                <h1>Access Denied</h1>
+                            </div>
+                            <div class="access_denied">
+                                <p style="font-size: calc(0.5vw + 1rem);">You need to be logged in to view this page.</p>  
+                                <a href="{% url 'login' %}" class="btn btn-Post" style="margin-bottom:5px;">Log In</a>
+                                <p>Don't have an account? <a href="{% url 'loginapp:register' %}">Register here</a>.</p>
+                            </div>
+                        </div>
+                    </div>
+                </div>
             {% endif %}
         {% endblock %}
     </body>

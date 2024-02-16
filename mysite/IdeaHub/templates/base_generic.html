@@ -93,7 +93,11 @@
               <div class="dropdown-menu dropdown-menu-right">
                 <!-- Profilna slika i korisničko ime -->
                   <div class="px-2 py-1 text-center" >
-                    <img src="{{ user.profile.profile_picture.url }}" class="profile-image">
+                    {% if user.profile.profile_picture%}
+                      <img src="{{ user.profile.profile_picture.url }}" class="profile-image">
+                    {% else %}
+                      <img src="{% static 'IdeaHub/images/default_profile_img.png'%}" class="profile-image"/>
+                    {% endif %}
                     <div style="color:black">{{ user.username }}</div>
                   </div>
                   <div class="dropdown-divider"></div>

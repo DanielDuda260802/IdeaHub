@@ -53,7 +53,15 @@
 
                 {% endfor %}
             {% else %}
-                Sorry this page does not exist.
+                <!-- post does not exist -->
+                <div class="empty-state">
+                    <div class="seven">
+                        <h1>There is no post in this category</h1>
+                    </div>
+                    <img src="{% static 'IdeaHub/images/NoPostCategory.webp' %}" alt="No Posts" class="empty-state-img">
+                    <p>It looks like there are no posts in this category yet.</p>
+                    <a href="{% url 'IdeaHub:add_post' %}" class="btn btn-Post">Create Post</a>
+                </div>
             {% endif %}
         {% endblock %}
     </body>
