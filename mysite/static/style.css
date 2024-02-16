@@ -251,31 +251,292 @@ form {
 
 /* delete_post */
 .nine h1 {
-    text-align:center; font-size:50px; text-transform:uppercase; color:#FFC40A; letter-spacing:1px;
-    font-family:"Playfair Display", serif; font-weight:400;
-  }
-  .nine h1 span {
+    text-align: center;
+    font-size: calc(2vw + 1rem); /* Prilagodite ovo prema potrebi */
+    text-transform: uppercase;
+    color: #FFC40A;
+    letter-spacing: 1px;
+    font-family: "Playfair Display", serif;
+    font-weight: 400;
+}
+
+.nine h1 span {
     margin-top: 5px;
-      font-size:15px; color:#F8DE7E; word-spacing:1px; font-weight:normal; letter-spacing:2px;
-      text-transform: uppercase; font-family:"Raleway", sans-serif; font-weight:500;
-  
-      display: grid;
-      grid-template-columns: 1fr max-content 1fr;
-      grid-template-rows: 27px 0;
-      grid-gap: 20px;
-      align-items: center;
-  }
-  
-  .nine h1 span:after,.nine h1 span:before {
-      content: " ";
-      display: block;
-      border-bottom: 1px solid #FFC40A;
-      border-top: 1px solid #FFC40A;
-      height: 5px;
-    background-color:#f8f8f8;
-  }
+    font-size: calc(1vw + 0.5rem); /* Prilagodite ovo prema potrebi */
+    color: #F8DE7E;
+    word-spacing: 1px;
+    font-weight: normal;
+    letter-spacing: 2px;
+    text-transform: uppercase;
+    font-family: "Raleway", sans-serif;
+    font-weight: 500;
+
+    display: grid;
+    grid-template-columns: 1fr max-content 1fr;
+    grid-template-rows: auto 0;
+    grid-gap: 20px;
+    align-items: center;
+}
+
+.nine h1 span:after, .nine h1 span:before {
+    content: " ";
+    display: block;
+    border-bottom: 1px solid #FFC40A;
+    border-top: 1px solid #FFC40A;
+    height: 5px;
+    background-color: #f8f8f8;
+}
+
 
   strong {
     color: #000000;
     font-size: x-large;
   }
+
+/* idea_details.html */
+.post-content{
+    background-color: #FFC40A;
+}
+
+.body_post p{
+    color: #000000;
+    padding-left: 10px;
+    padding-right: 10px;
+}
+
+.like_form{
+    border-radius: 0;
+    background-color: #FFDC0A;
+}
+
+.btn-like, .btn-dislike {
+    border: none;
+    padding: 10px 20px;
+    font-size: 16px;
+    border-radius: 5px;
+    transition: background-color 0.3s, color 0.3s;
+    cursor: pointer;
+}
+
+.btn-like {
+    background-color: #0078d0;
+    border: 0;
+    border-radius: 56px;
+    color: #fff;
+    cursor: pointer;
+    display: inline-block;
+    font-family: system-ui,-apple-system,system-ui,"Segoe UI",Roboto,Ubuntu,"Helvetica Neue",sans-serif;
+    font-size: 18px;
+    font-weight: 600;
+    outline: 0;
+    padding: 16px 21px;
+    position: relative;
+    text-align: center;
+    text-decoration: none;
+    transition: all .3s;
+    user-select: none;
+    -webkit-user-select: none;
+    touch-action: manipulation;
+}
+
+.btn-like:before {
+  background-color: initial;
+  background-image: linear-gradient(#fff 0, rgba(255, 255, 255, 0) 100%);
+  border-radius: 125px;
+  content: "";
+  height: 50%;
+  left: 4%;
+  opacity: .5;
+  position: absolute;
+  top: 0;
+  transition: all .3s;
+  width: 92%;
+}
+
+.btn-like:hover {
+  box-shadow: rgba(255, 255, 255, .2) 0 3px 15px inset, rgba(0, 0, 0, .1) 0 3px 5px, rgba(0, 0, 0, .1) 0 10px 13px;
+  transform: scale(1.05);
+}
+
+@media (min-width: 768px) {
+  .btn-like {
+    padding: 16px 48px;
+  }
+}
+
+.btn-dislike {
+  background-color: #dc3545;
+  border: 0;
+  border-radius: 56px;
+  color: lightgrey;
+  cursor: pointer;
+  display: inline-block;
+  font-family: system-ui,-apple-system,system-ui,"Segoe UI",Roboto,Ubuntu,"Helvetica Neue",sans-serif;
+  font-size: 18px;
+  font-weight: 600;
+  outline: 0;
+  padding: 16px 21px;
+  position: relative;
+  text-align: center;
+  text-decoration: none;
+  transition: all .3s;
+  user-select: none;
+  -webkit-user-select: none;
+  touch-action: manipulation;
+}
+
+.btn-dislike:before {
+  background-color: initial;
+  background-image: linear-gradient(#fff 0, rgba(255, 255, 255, 0) 100%);
+  border-radius: 125px;
+  content: "";
+  height: 50%;
+  left: 4%;
+  opacity: .5;
+  position: absolute;
+  top: 0;
+  transition: all .3s;
+  width: 92%;
+}
+
+.btn-dislike:hover {
+  box-shadow: rgba(255, 255, 255, .2) 0 3px 15px inset, rgba(0, 0, 0, .1) 0 3px 5px, rgba(0, 0, 0, .1) 0 10px 13px;
+  transform: scale(1.05);
+}
+
+@media (min-width: 768px) {
+  .btn-dislike {
+    padding: 16px 48px;
+  }
+}
+
+.login-to-like {
+    font-size: 14px;
+    margin-left: 5px;
+}
+
+.total-likes {
+    font-size: 16px;
+    font-weight: bold;
+    margin-left: 10px;
+    color: #000000;
+}
+
+.comment-section {
+    margin-top: 2px;
+    background-color: #b1b2b5;
+    margin-bottom: 10px;
+}
+
+.comment {
+    margin: 10px;
+    padding: 20px;
+    background-color: #ebedee;
+}
+
+.comment-author {
+    font-weight: bold;
+    color: #333;
+}
+
+.comment-body {
+    font-size: 14px;
+    line-height: 1.6;
+    color: #000000;
+}
+
+.comment-actions .edit, .comment-actions .delete {
+    margin-right: 10px;
+    font-size: 14px;
+    color: #007bff;
+    transition: color 0.3s ease;
+    text-decoration: none;
+}
+
+.comment-actions .edit:hover, .comment-actions .delete:hover {
+    color: #0056b3;
+    text-decoration: underline;
+}
+
+.comment-actions .delete {
+    color: #dc3545;
+}
+
+.comment-actions .delete:hover {
+    color: #bd2130;
+}
+
+.btn-add-comment {
+    background-color: #007bff;
+    color: white;
+    border-radius: 5px;
+    padding: 10px 15px;
+    display: inline-block;
+    text-decoration: none;
+    transition: background-color 0.3s ease;
+    margin-top: 20px;
+    margin-left: 15px;
+    margin-bottom: 15px;
+}
+
+.btn-add-comment i {
+    margin-right: 5px;
+}
+
+.btn-add-comment:hover {
+    background-color: #0056b3;
+    color: white;
+    text-decoration: none;
+}
+
+.card-title {
+    font-size: 24px; 
+    color: #000000; 
+    font-weight: bold;
+    margin-bottom: 10px;
+}
+
+.profile-icon {
+    color: #333; 
+    margin-right: 10px; 
+    font-size: 20px; 
+    transition: color 0.3s ease;
+}
+
+.profile-icon:hover {
+    color: hsl(211, 100%, 50%); 
+}
+
+.fa-facebook-f {
+    color: #3b5998;
+}
+
+.fa-instagram {
+    background: -moz-linear-gradient(45deg, #f09433 0%, #e6683c 25%, #dc2743 50%, #cc2366 75%, #bc1888 100%);
+    background: -webkit-linear-gradient(45deg, #f09433 0%,#e6683c 25%,#dc2743 50%,#cc2366 75%,#bc1888 100%);
+    background: linear-gradient(45deg, #f09433 0%,#e6683c 25%,#dc2743 50%,#cc2366 75%,#bc1888 100%);
+    background-clip: text;
+    -webkit-background-clip: text; 
+    -webkit-text-fill-color: transparent;
+}
+
+.fa-github {
+    color: #333;
+}
+
+.fa-globe {
+    color: #0e76a8; 
+}
+
+.fa-globe, .fa-facebook-f, .fa-instagram, .fa-github {
+    font-size: 24px;
+    vertical-align: middle;
+}
+
+a i {
+    margin-right: 5px;
+    margin-left: 5px; 
+    font-size: 24px;
+    font-weight: bold; 
+}
+

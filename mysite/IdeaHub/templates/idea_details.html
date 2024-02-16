@@ -5,31 +5,33 @@
 <html>
     <head>
         <title>{% block title %} {{post.title_tag}} {% endblock %}</title>
+        <link rel="stylesheet" type="text/css" href="{% static 'style.css' %}">
     </head>
 
     <body>
         {% block content %}
-            <h1>{{post.category}} - {{post.title}} </h1>
-            {% if user.is_authenticated %}
-                {% if user.id == post.author.id %}
-                    <small> <a href="{% url 'IdeaHub:update_post' post.pk %}"> (Edit) </a> </small> 
-                    <small> <a href="{% url 'IdeaHub:delete_post' post.pk %}"> (Delete) </a> </small>
+            <div class="nine">
+                <h1>{{post.category}} - {{post.title}}
+                {% if user.is_authenticated %}
+                    {% if user.id == post.author.id %}
+                        <small> <a href="{% url 'IdeaHub:update_post' post.pk %}" style="color: #679BF1;"> (Edit) </a> </small>
+                        <small> <a href="{% url 'IdeaHub:delete_post' post.pk %}" style="color: #dc3545; " > (Delete) </a> </small>
+                    {% endif %}
                 {% endif %}
-            {% endif %}
-            <br/>
-            By: {{post.author.first_name}} {{post.author.last_name}}
-            <small> {{post.post_date}} </small> 
-
-            <br/>
-            <hr>
-            <br/>
+                <span>
+                    By: {{post.author.first_name}} {{post.author.last_name}} - {{post.post_date}} 
+                </span>
+                </h1>
+            </div>
             
             <div class="post-content">
                 {% if post.header_image %}
                     <img src="{{ post.header_image.url }}"> 
-                    <br/><br/>
+                    <br/>
                 {% endif %}
-                {{ post.body|safe }}
+                <div class="body_post">
+                    <p>{{ post.body|safe }}</p>
+                </div>
             </div>   
 
             <script>
@@ -38,41 +40,90 @@
                     images.forEach(function(img) {
                         img.style.maxWidth = "100%";
                         img.style.height = "auto";
+                        img.style.padding = "30px";
                     });
                 });
             </script>
-            <br/>
-            <a href="{% url 'IdeaHub:homepage' %}" class="btn btn-primary">Povratak</a>
-
-            <br/><br/>
-            <hr>
-            <br/>
-            
-            <form action="{% url 'IdeaHub:like_post' post.pk %}" method="POST">
+                      
+            <form action="{% url 'IdeaHub:like_post' post.pk %}" method="POST" class="like_form">
                 {% csrf_token %}
                 
                 {% if user.is_authenticated %}
                     {% if liked %}
-                        <button type="submit", name="post_id", value="{{post.id}}", class="btn btn-danger">Ne sviđa mi se</button> 
+                        <button type="submit", name="post_id", value="{{post.id}}", class="btn btn-dislike">
+                            <i class="fa fa-thumbs-down"></i><span> Ne sviđa mi se</span>
+                        </button> 
                     {% else %}
-                        <button type="submit", name="post_id", value="{{post.id}}", class="btn btn-primary">Sviđa mi se</button> 
+                        <button type="submit", name="post_id", value="{{post.id}}", class="btn btn-like">
+                            <i class="fa fa-thumbs-up"></i><span> Sviđa mi se</span>
+                        </button> 
                     {% endif %}
                 {% else %}
-                    <small><a href="{% url 'login' %}"> Login</a> to like.</small>
+                    <small><a href="{% url 'login' %}" class="login-to-like"> Login</a> to like.</small>
                 {% endif %}
-                - {{ total_likes }} Likes
+                <span class="total-likes">- {{ total_likes }} Likes</span>
             </form>
 
-            <br/><br/>
+            
+            <div class="comment-section">
+                {% if user.is_authenticated %}
+                    {% if not post.comments.all %}
+                        <p>No comments yet.</p>
+                        <a href="{% url 'IdeaHub:add_comment' post.pk %}" class="btn btn-add-comment">
+                            <i class="fa fa-plus-circle"></i> Add comment
+                        </a>  
+                    {% else %}
+                        {% for comment in post.comments.all %}
+                            <div class="comment">
+                                <div class="comment-author">{{ comment.comment_author }} - {{ comment.date_added }}</div>
+                                <div class="comment-body">{{ comment.body }}</div>
+                                <div class="comment-actions">
+                                    {% if post.author.id == user.id or user.id == comment.comment_author.id %}
+                                        <a href="{% url 'IdeaHub:update_comment' comment.pk %}" class="edit">Edit</a>
+                                        <a href="{% url 'IdeaHub:delete_comment' comment.pk %}" class="delete">Delete</a>
+                                    {% endif %}
+                                </div>
+                            </div>
+                        {% endfor %}
+                        <a href="{% url 'IdeaHub:add_comment' post.pk %}" class="btn btn-add-comment">
+                            <i class="fa fa-plus-circle"></i> Add comment
+                        </a>  
+                    {% endif %}
+                {% else %}  
+                    {% if not post.comments.all %}
+                        <p>No comments yet.</p>
+                        <a href="{% url 'login' %}" class="btn btn-add-comment">
+                            <i class="fas fa-sign-in-alt"></i> Login to comment
+                        </a>
+                    {% else %}
+                        {% for comment in post.comments.all %}
+                            <div class="comment">
+                                <div class="comment-author">{{ comment.comment_author }} - {{ comment.date_added }}</div>
+                                <div class="comment-body">{{ comment.body }}</div>
+                                <div class="comment-actions">
+                                    {% if post.author.id == user.id or user.id == comment.comment_author.id %}
+                                        <a href="{% url 'IdeaHub:update_comment' comment.pk %}" class="edit">Edit</a>
+                                        <a href="{% url 'IdeaHub:delete_comment' comment.pk %}" class="delete">Delete</a>
+                                    {% endif %}
+                                </div>
+                            </div>  
+                        {% endfor %}
+                        <a href="{% url 'login' %}" class="btn btn-add-comment">
+                            <i class="fas fa-sign-in-alt"></i> Login to comment
+                        </a>
+                    {% endif %}  
+                {% endif %}
+            </div>
+            
 
             <div class="card mb-3">
                 <div class="row no-gutters">
                     <div class="col-md-2">
-            {% if post.author.profile.profile_picture %}
-                        <img src="{{post.author.profile.profile_picture.url}}" class="card-img" />
-            {% else %}
-                        <img src="{% static 'IdeaHub/images/default_profile_img.png' %}" class="card-img" />
-            {% endif %}
+                        {% if post.author.profile.profile_picture %}
+                            <img src="{{post.author.profile.profile_picture.url}}" class="card-img" />
+                        {% else %}
+                            <img src="{% static 'IdeaHub/images/default_profile_img.png' %}" class="card-img" />
+                        {% endif %}
                     </div>
 
                     <div class="col-md-10">
@@ -84,21 +135,31 @@
 
                             <p class="small text-muted">
 
-                                <a href="{% url 'loginapp:show_profile' post.author.profile.id %}">Profile page</a>
+                                <a href="{% url 'loginapp:show_profile' post.author.profile.id %}" class="profile-icon">
+                                    <i class="fas fa-user"></i> My Profile    
+                                </a>
                                 {% if post.author.profile.website_url %}
-                                    |<a href="{{post.author.profile.website_url}}"> Website</a> 
+                                    |<a href="{{post.author.profile.website_url}}"> 
+                                        <i class="fas fa-globe"></i>
+                                    </a> 
                                 {% endif %}
 
                                 {% if post.author.profile.facebook_url %}
-                                    |<a href="{{post.author.profile.facebook_url}}"> Facebook</a> 
+                                    |<a href="{{post.author.profile.facebook_url}}"> 
+                                        <i class="fab fa-facebook-f"></i> 
+                                    </a> 
                                 {% endif %}
 
                                 {% if post.author.profile.instagram_url %}
-                                    |<a href="{{post.author.profile.instagram_url}}"> Instagram</a> 
+                                    |<a href="{{post.author.profile.instagram_url}}"> 
+                                        <i class="fab fa-instagram"></i>
+                                    </a> 
                                 {% endif %}
 
                                 {% if post.author.profile.github_url %}
-                                    |<a href="{{post.author.profile.github_url}}"> Github</a> 
+                                    |<a href="{{post.author.profile.github_url}}"> 
+                                        <i class="fab fa-github"></i>
+                                    </a> 
                                 {% endif %}
 
                             </p>
@@ -112,31 +173,7 @@
                 </div>
             </div>
 
-            <br/>
-            <hr>
-            <h2>Comments...</h2>
-
-            {% if not post.comments.all %} <!-- related_name = "comments" -->
-                <p>No comments yet.</p> 
-                <a href="{% url 'IdeaHub:add_comment' post.pk %}">Add comment</a>
-            {% else %}
-                <br/><br/>
-                {% for comment in post.comments.all %}
-                    <strong>{{ comment.comment_author }} - {{ comment.date_added }}</strong>
-                    {% if post.author.id == user.id or user.id == comment.comment_author.id %}
-                        <a href="{% url 'IdeaHub:update_comment' comment.pk %}">Edit</a>
-                        <a href="{% url 'IdeaHub:delete_comment' comment.pk %}">Delete</a>
-                    {% endif %}
-                    <br/>
-                    <p>{{comment.body}}</p> 
-                {% endfor %}
-                <a href="{% url 'IdeaHub:add_comment' post.pk %}">Add comment</a>
-            {% endif %}
-
-            
-
-            
-
+            <a href="{% url 'IdeaHub:homepage' %}" class="btn btn-Post">Povratak</a>  
         {% endblock %}
     </body>
 </html>
