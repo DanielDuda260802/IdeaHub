@@ -9,9 +9,12 @@
 
 <body>
     {% block content %}
-
-        <h1>User profile..</h1>
-        <br/>
+        <div class="container custom-container">
+            <div class="row">
+                <div class="col-md-8 offset-md-2 col-lg-12 offset-lg-0">
+                    <div class="seven">
+                        <h1>{{page_user.user.username}}</h1>
+                    </div>
         
         <div class="card mb-3">
             <div class="row no-gutters">
@@ -30,24 +33,31 @@
                             {{page_user.user.first_name}} {{page_user.user.last_name}}
                         </h5>
 
-                        <p class="small text-muted">
+                        <p class="small text-muted">   
 
-                            {% if page_user.website_url %}
-                                |<a href="{{page_user.website_url}}"> Website</a> 
-                            {% endif %}
+                                {% if page_user.website_url %}
+                                        |<a href="{{page_user.website_url}}"> 
+                                            <i class="fas fa-globe"></i> Website
+                                        </a> 
+                                {% endif %}
 
-                            {% if page_user.facebook_url %}
-                                |<a href="{{page_user.facebook_url}}"> Facebook</a> 
-                            {% endif %}
+                                {% if page_user.facebook_url %}
+                                    |<a href="{{page_user.facebook_url}}"> 
+                                        <i class="fab fa-facebook-f"></i> Facebook
+                                    </a> 
+                                {% endif %}
 
-                            {% if page_user.instagram_url %}
-                                |<a href="{{page_user.instagram_url}}"> Instagram</a> 
-                            {% endif %}
+                                {% if page_user.instagram_url %}
+                                    |<a href="{{page_user.instagram_url}}"> 
+                                        <i class="fab fa-instagram"></i> Instagram
+                                    </a> 
+                                {% endif %}
 
-                            {% if page_user.github_url %}
-                                |<a href="{{page_user.github_url}}"> Github</a> 
-                            {% endif %}
-
+                                {% if page_user.github_url %}
+                                    |<a href="{{page_user.github_url}}">  
+                                        <i class="fab fa-github"></i> Github
+                                    </a> 
+                                {% endif %}
                         </p>
 
                         <p class="card-text">

@@ -582,3 +582,16 @@ a i {
     text-align: center;
     align-items: center;
 }
+
+/* user_profile.html */
+@media (min-width: 992px) { 
+    .custom-container {
+        max-width: 90%; 
+    }
+}
+
+@media (max-width: 991px) { 
+    .custom-container {
+        max-width: 100%; 
+    }
+}

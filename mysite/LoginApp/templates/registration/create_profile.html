@@ -8,13 +8,19 @@
     <body>
         {% block content %}
             {% if user.is_authenticated %}
-                <h1>Create profile page...</h1>
+                <div class="container">
+                    <div class="row">
+                        <div class="col-md-8 offset-md-2 col-lg-10 offset-lg-1">
+                            <div class="seven">
+                                <h1>Create profile page</h1>
+                            </div>
+
                 <form method="POST" enctype="multipart/form-data">
                     {% csrf_token %}
                     {{ form.as_p }}
-                    <br/>
-                    <br/>
-                    <button type="submit" class="btn btn-primary">Create profile page</button>
+                    <div class="d-flex justify-content-center">
+                        <button type="submit" class="btn btn-Post">Create profile page</button>
+                    </div>
                 </form>
 
             {% else %}

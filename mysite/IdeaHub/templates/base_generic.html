@@ -102,12 +102,12 @@
                   </div>
                   <div class="dropdown-divider"></div>
 
-                  <a class="dropdown-item" href="{% url 'loginapp:edit_profile' %}">Edit settings</a>
+                  <a class="dropdown-item" href="{% url 'loginapp:edit_profile' %}"><i class="fas fa-cog"></i> Edit settings</a>
                   {% if user.profile.id %}
-                    <a class="dropdown-item" href="{% url 'loginapp:edit_profile_page' user.profile.id %}">Edit profile page</a>
-                    <a class="dropdown-item" href="{% url 'loginapp:show_profile' user.profile.id %}">Show profile</a>
+                    <a class="dropdown-item" href="{% url 'loginapp:edit_profile_page' user.profile.id %}"><i class="fas fa-user-edit"></i> Edit profile page</a>
+                    <a class="dropdown-item" href="{% url 'loginapp:show_profile' user.profile.id %}"><i class="fas fa-user-circle"></i> Show profile</a>
                   {% else %}
-                    <a class="dropdown-item" href="{% url 'loginapp:create_profile' %}">Create profile page</a>
+                    <a class="dropdown-item" href="{% url 'loginapp:create_profile' %}"><i class="fas fa-user-plus"></i> Create profile page</a>
                   {% endif %}
                   
                   <div class="dropdown-divider"></div>

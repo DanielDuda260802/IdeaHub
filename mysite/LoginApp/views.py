@@ -46,7 +46,7 @@ class ShowProfilePageView(DetailView):
 class EditProfilePageView(UpdateView):
     model = Profile
     template_name = 'registration/edit_profile_page.html'
-    fields = ['bio', 'profile_picture', 'website_url', 'facebook_url', 'instagram_url', 'github_url']
+    form_class = ProfilePageForm
     success_url = reverse_lazy('IdeaHub:homepage')
 
 class CreateProfilePageView(CreateView):

@@ -50,7 +50,7 @@ class ProfilePageForm(forms.ModelForm):
 
         widgets = {
             'bio': forms.Textarea(attrs={'class': 'form-control'}), # form-control --> Bootstrap item
-            'profile_picture': forms.FileInput(attrs={'class': 'form-control'}),
+            'profile_picture': forms.FileInput(attrs={'class': 'form-control-file'}),
             'website_url': forms.TextInput(attrs={'class': 'form-control'}),
             'facebook_url': forms.TextInput(attrs={'class': 'form-control'}),
             'instagram_url': forms.TextInput(attrs={'class': 'form-control'}),

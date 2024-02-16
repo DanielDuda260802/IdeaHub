@@ -7,24 +7,34 @@
 
     <body>
         {% block content %}
-            <h1>Login...</h1>
-            <br/>
-            <div class="form-group">
-                <form method="POST">
-                    {% csrf_token %}
-                    
-                    <div class="form-group">
-                        <label >Username </label>
-                        <input type="text" class="form-control" name="username" >
+            <div class="container">
+                <div class="row">
+                    <div class="col-md-8 offset-md-2 col-lg-10 offset-lg-1">
+                        <div class="seven">
+                            <h1>Login</h1>
+                        </div>
+
+                        <div class="form-group">
+                            <form method="POST">
+                                {% csrf_token %}
+                                
+                                <div class="form-group">
+                                    <label >Username </label>
+                                    <input type="text" class="form-control" name="username" >
+                                </div>
+                                
+                                <div class="form-group">
+                                    <label >Password</label>
+                                    <input type="password" class="form-control" name="password">
+                                    <small class="form-text text-muted">Don't have an account?<a href="{% url 'loginapp:register' %}">Register here</a>.</small>
+                                </div>
+                                
+                                <div class="d-flex justify-content-center">
+                                    <button type="submit" class="btn btn-Post">Login</button>
+                                </div>
+                        </div>
                     </div>
-                    
-                    <div class="form-group">
-                        <label >Password</label>
-                        <input type="password" class="form-control" name="password">
-                        <small class="form-text text-muted">Not registrated? Sign Up<a href="{% url 'loginapp:register' %}"> here...</a> </small>
-                    </div>
-                    
-                    <button class="btn btn-primary">Login</button>
+                </div>
             </div>
         {% endblock %}
     </body>
