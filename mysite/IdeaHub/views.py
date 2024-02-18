@@ -81,15 +81,15 @@ class AddComment(CreateView):
     model = Comment
     template_name = 'add_comment.html'
     form_class = CommentForm
-   
-    def get_success_url(self):
-        post_pk = self.object.post.pk
-        return reverse('IdeaHub:idea_detail', kwargs={'pk': post_pk})
 
     def form_valid(self, form):
         form.instance.comment_author = self.request.user
         form.instance.post_id = self.kwargs['pk']
         return super().form_valid(form)
+    
+    def get_success_url(self):
+        post_pk = self.object.post.pk
+        return reverse('IdeaHub:idea_detail', kwargs={'pk': post_pk})
     
 class UpdateCommentView(UpdateView):
     model = Comment
