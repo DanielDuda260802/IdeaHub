@@ -153,9 +153,61 @@ class TestViews(TestCase):
         self.assertEqual(response.status_code, 200)
         self.assertTemplateUsed(response, 'delete_comment.html')
 
-    # Continue with other views ...
-
     def tearDown(self):
         self.user.delete()
         self.post.delete()
         self.category.delete()
+
+class Testmodels(TestCase):
+
+    def setUp(self):
+        self.user1 = User.objects.create_user(username='testuser1', password='12345')
+        self.category1 = Category.objects.create(name='Test Category')
+        self.post1 = Post.objects.create(
+            title='Test Post',
+            title_tag='Test Title Tag',
+            author=self.user1,
+            body='Body content here',
+            category=self.category1.name
+        )
+        self.profile1 = Profile.objects.create(
+            user=self.user1,
+            bio='Bio here',
+            website_url='http://example.com',
+            facebook_url='http://facebook.com',
+            instagram_url='http://instagram.com',
+            github_url='http://github.com'
+        )
+        self.comment1 = Comment.objects.create(
+            post=self.post1,
+            comment_author=self.user1,
+            body='Comment body here'
+        )
+
+    def test_post_model(self):
+        self.assertEquals(self.post1.title, 'Test Post')
+        self.assertEquals(self.post1.author, self.user1)
+        self.assertEquals(self.post1.body, 'Body content here')
+        self.assertEquals(self.post1.category, 'test category') 
+
+    def test_category_model(self):
+        self.assertEquals(self.category1.name, 'test category') 
+
+    def test_profile_model(self):
+        self.assertEquals(self.profile1.user, self.user1)
+        self.assertEquals(self.profile1.bio, 'Bio here')
+        self.assertEquals(self.profile1.website_url, 'http://example.com')
+
+    def test_comment_model(self):
+        self.assertEquals(self.comment1.post, self.post1)
+        self.assertEquals(self.comment1.comment_author, self.user1)
+        self.assertEquals(self.comment1.body, 'Comment body here')
+
+    def test_post_total_likes(self):
+        self.assertEquals(self.post1.total_likes(), 0) 
+
+    def test_get_absolute_url_methods(self):
+        self.assertEquals(self.post1.get_absolute_url(), '/')
+        self.assertEquals(self.category1.get_absolute_url(), '/')
+        self.assertEquals(self.profile1.get_absolute_url(), '/')
+        self.assertEquals(self.comment1.get_absolute_url(), f'/ideja/{self.post1.pk}')
